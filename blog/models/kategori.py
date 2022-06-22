@@ -2,7 +2,7 @@ from django.db import models
 from autoslug import AutoSlugField
 
 
-class KatagoriModel(models.Model):
+class KategoriModel(models.Model):
     isim = models.CharField(max_length=30, blank=False, null=False)
     slug = AutoSlugField(populate_from='isim', unique=True)
 

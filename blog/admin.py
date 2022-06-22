@@ -1,4 +1,4 @@
 from django.contrib import admin
-from blog.models import KatagoriModel
+from blog.models import KategoriModel
 
-admin.site.register(KatagoriModel)
+admin.site.register(KategoriModel)

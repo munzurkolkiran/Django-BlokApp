@@ -1,1 +1,1 @@
-from .katagori import KatagoriModel
+from .kategori import KategoriModel
