@@ -1,0 +1,1 @@
+from .katagori import KatagoriModel
