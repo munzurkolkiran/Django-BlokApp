@@ -5,7 +5,7 @@ from blog.models import YazilarModel
 
 class YorumModel(models.Model):
     yazan = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='yorum')
+        'account.CustomUserModel', on_delete=models.CASCADE, related_name='yorum')
     yazi = models.ForeignKey(
         YazilarModel, on_delete=models.CASCADE, related_name='yorumlar')
     yorum = models.TextField()
