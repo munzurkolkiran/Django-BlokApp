@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 
 def iletisim(request):
-
-    return render(request, 'pages/iletisim.html')
+    context = {}
+    return render(request, 'pages/iletisim.html', context)
