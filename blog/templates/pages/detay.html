@@ -17,8 +17,7 @@
 
 
 <h5>Yorumlar</h5>
-
-{% for yorum in yorumlar %}
+{% if yorum %} {% for yorum in yorumlar %}
 <div class="card" style="margin-bottom:20px;">
     <div class="card-body" style="display: flex;flex-direction: row;">
         <div>
@@ -33,4 +32,4 @@
     </div>
 
 </div>
-{% endfor %} {% endblock %}
+{% endfor %} {% else %} Herhangi bir yorum bulunamadi... {% endif %} {% endblock %}
