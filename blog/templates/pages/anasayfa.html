@@ -1,58 +1,52 @@
-{% extends 'base.html' %} {% block title %} Anasayfa {% endblock %} {% block content %}
-<div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-</div>
+{% extends 'base.html' %} {% block title %} Anasayfa {% endblock %} {% block content %} {% for yazi in yazilar %}
 
 <div class="card mb-3">
     <div class="row g-0">
-        <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
+        <div class="col-md-4 resim">
+            <img src="{{yazi.resim.url}}" class="img-fluid rounded-start img" alt="...">
         </div>
         <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="card-body body">
+                <h5 class="card-title">{{yazi.baslik}}</h5>
+                <p class="card-text">{{yazi.icerik|safe|truncatechars_html:150}} </p>
+                <p class="card-text"><small class="text-muted">{{yazi.guncelleme_tarihi|timesince}} ago</small></p>
             </div>
         </div>
     </div>
 </div>
-<div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-</div>
+{% empty %}
+<p>Hic yazi bulunamadi</p>
+{% endfor %}
 
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-end">
+        {% if yazilar.has_previous %}
+        <li class="page-item ">
+            <a class="page-link" href="?sayf={{yazilar.previous_page_number}}">Previous</a>
+        </li>
+        {% else %}
         <li class="page-item disabled">
             <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        </li>{% endif %}
+
+        <li class="page-item"><a class="page-link" href="">{{yazilar.number}}</a></li>
+        {% if yazilar.has_next %}
+
         <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+            <a class="page-link" href="?sayf={{yazilar.next_page_number}}">{{yazilar.next_page_number}}</a>
         </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?sayf={{yazilar.next_page_number}}">Next</a>
+        </li>
+
+
+        <li class="page-item">
+            <a class="page-link" href="?sayf={{yazilar.paginator.num_pages}}">Last Page</a>
+        </li>
+
+        {% endif %}
+
     </ul>
-</nav> {% endblock %}
+</nav>
+{% endblock %}
