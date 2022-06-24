@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %} {{yazi.baslik}} {% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %} {{yazi.baslik}} {% endblock %} {% block content %}
 
 <div class="card mb-3">
     <div class="row g-0">
@@ -18,14 +18,19 @@
 
 <h5>Yorumlar</h5>
 
-<div class="card">
+{% for yorum in yorumlar %}
+<div class="card" style="margin-bottom:20px;">
     <div class="card-body" style="display: flex;flex-direction: row;">
         <div>
-            <img src="url" width="75px" height="75px" class="pt-4">
+            {% if yorum.yazan.avatar %}
+            <img src="{{yorum.yazan.avatar.url}} " width="75px" height="75px" style="margin-right: 10px;"> {% else %}
+            <img src="{% static 'img/images.png' %} " width="75px" height="75px" style="margin-right: 10px;"> {% endif %}
+        </div>
+        <div>
+            <h5 class="card-title">{{yorum.yazan.username}}</h5>
+            <p class="card-text">{{yorum.yorum}}</p>
         </div>
     </div>
-    <h5 class="card-title">Card Title</h5>
-    <p class="card-text"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, laborum.</p>
-</div>
 
-{% endblock %}
+</div>
+{% endfor %} {% endblock %}
