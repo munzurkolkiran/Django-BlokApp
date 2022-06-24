@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %} Anasayfa {% endblock %} {% block content %} {% for yazi in yazilar %}
+{% extends 'base.html' %} {% block title %} Yazilarim {% endblock %} {% block content %} {% for yazi in yazilar %}
 
 <div class="card mb-3">
     <div class="row g-0">
@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-8">
             <div class="card-body body">
-                <h5 class="card-title"><a href="{% url 'detay' slug=yazi.slug %}">{{yazi.baslik}}</a></h5>
+                <h5 class="card-title">{{yazi.baslik}}</h5>
                 <p class="card-text">{{yazi.icerik|safe|truncatechars_html:150}} </p>
                 <p class="card-text"><small class="text-muted">{{yazi.guncelleme_tarihi|timesince}} ago</small></p>
             </div>
