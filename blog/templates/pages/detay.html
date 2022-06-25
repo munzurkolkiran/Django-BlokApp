@@ -9,7 +9,12 @@
             <div class="card-body body">
                 <h5 class="card-title">{{yazi.baslik}}</h5>
                 <p class="card-text">{{yazi.icerik|safe}} </p>
-                <p class="card-text"><small class="text-muted">{{yazi.guncelleme_tarihi|timesince}} ago</small></p>
+                <p class="card-text"><small class="text-muted">{{yazi.guncelleme_tarihi|timesince}} ago</small> {% if request.user == yazi.yazar%}
+                    <p><a href="{% url 'yazi_guncelle' slug=yazi.slug %}">Duzenle</a>
+                        <a href="{% url 'yazi_sil' slug=yazi.slug %}">Sil</a></p>
+
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>
@@ -17,7 +22,7 @@
 
 
 <h5>Yorumlar</h5>
-{% if yorum %} {% for yorum in yorumlar %}
+{% for yorum in yorumlar %}
 <div class="card" style="margin-bottom:20px;">
     <div class="card-body" style="display: flex;flex-direction: row;">
         <div>
@@ -32,4 +37,4 @@
     </div>
 
 </div>
-{% endfor %} {% else %} Herhangi bir yorum bulunamadi... {% endif %} {% endblock %}
+{% empty %} Herhangi bir yorum bulunamadi... {% endfor %} {% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %} Yazi Guncelle {% endblock %} {% block content %}
+
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %} {{form.media}}{{ form.as_p }}
+    <input type="submit" class="btn btn-danger mt-3 mb-3" value="Yazi Guncelle">
+</form>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %} Yazi Ekle {% endblock %} {% block content %}
+
+<form action="{% url 'yazi_ekle' %}" enctype="multipart/form-data" method="POST">
+    {% csrf_token %} {{form.media}}{{ form.as_p }}
+    <input type="submit" class="btn btn-danger mt-3 mb-3" value="Yazi Olustur">
+</form>
+{% endblock %}
