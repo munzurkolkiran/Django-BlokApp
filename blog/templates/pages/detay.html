@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block title %} {{yazi.baslik}} {% endblock %} {% block content %}
+{% extends 'base.html' %} {% block title %} Anasayfa {% endblock %} {% block content %} {% for yazi in yazilar %}
 
 <div class="card mb-3">
     <div class="row g-0">
@@ -7,34 +7,46 @@
         </div>
         <div class="col-md-8">
             <div class="card-body body">
-                <h5 class="card-title">{{yazi.baslik}}</h5>
-                <p class="card-text">{{yazi.icerik|safe}} </p>
-                <p class="card-text"><small class="text-muted">{{yazi.guncelleme_tarihi|timesince}} ago</small> {% if request.user == yazi.yazar%}
-                    <p><a href="{% url 'yazi_guncelle' slug=yazi.slug %}">Duzenle</a>
-                        <a href="{% url 'yazi_sil' slug=yazi.slug %}">Sil</a></p>
-
-                    {% endif %}
-                </p>
+                <h5 class="card-title"><a href="{% url 'detay' slug=yazi.slug %}">{{yazi.baslik}}</a></h5>
+                <p class="card-text">{{yazi.icerik|safe|truncatechars_html:150}} </p>
+                <p class="card-text"><small class="text-muted">{{yazi.guncelleme_tarihi|timesince}} ago</small></p>
             </div>
         </div>
     </div>
 </div>
+{% empty %}
+<p>Hic yazi bulunamadi</p>
+{% endfor %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        {% if yazilar.has_previous %}
+        <li class="page-item ">
+            <a class="page-link" href="?sayf={{yazilar.previous_page_number}}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>{% endif %}
+
+        <li class="page-item"><a class="page-link" href="">{{yazilar.number}}</a></li>
+        {% if yazilar.has_next %}
+
+        <li class="page-item">
+            <a class="page-link" href="?sayf={{yazilar.next_page_number}}">{{yazilar.next_page_number}}</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?sayf={{yazilar.next_page_number}}">Next</a>
+        </li>
 
 
-<h5>Yorumlar</h5>
-{% for yorum in yorumlar %}
-<div class="card" style="margin-bottom:20px;">
-    <div class="card-body" style="display: flex;flex-direction: row;">
-        <div>
-            {% if yorum.yazan.avatar %}
-            <img src="{{yorum.yazan.avatar.url}} " width="75px" height="75px" style="margin-right: 10px;"> {% else %}
-            <img src="{% static 'img/images.png' %} " width="75px" height="75px" style="margin-right: 10px;"> {% endif %}
-        </div>
-        <div>
-            <h5 class="card-title">{{yorum.yazan.username}}</h5>
-            <p class="card-text">{{yorum.yorum}}</p>
-        </div>
-    </div>
+        <li class="page-item">
+            <a class="page-link" href="?sayf={{yazilar.paginator.num_pages}}">Last Page</a>
+        </li>
 
-</div>
-{% empty %} Herhangi bir yorum bulunamadi... {% endfor %} {% endblock %}
+        {% endif %}
+
+    </ul>
+</nav>
+{% endblock %}
